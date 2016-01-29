@@ -1,4 +1,4 @@
-package ki;
+package ki; // a commentary
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
