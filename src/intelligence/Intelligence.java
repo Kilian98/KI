@@ -1,7 +1,8 @@
 package intelligence;
 
 import etc.WordArrays;
-import something.Random;
+import lib.Random;
+
 
 public class Intelligence {
 
