@@ -1,10 +1,11 @@
 package intelligence;
 
 import etc.WordArrays;
-import etc.recocnizableWords;
 import lib.Random;
 
 public class Intelligence {
+
+    public static final String prefix = "KI:\t";
 
     public Intelligence() {
 
@@ -12,24 +13,24 @@ public class Intelligence {
 
     public String newInput(String text) {
 
-        String output = divideIntoSections(text.toLowerCase());
+        String input = text.toLowerCase();
+        String output = process(input);
+        return !output.isEmpty() ? prefix + output : prefix + "Ich kann hierauf leider noch nichts antworten.";
 
-        if (!output.equals("")) {
-            return "KI:\t" + output;
-        }
-
-        return "KI:\tIch kann dir hierauf leider noch nichts antworten :/";
     }
 
-    public String divideIntoSections(String text) {
+    /*
+     @params text needs to be lower case
+     */
+    public String process(String text) {
 
         if (isGreeting(text)) {
             return oneOf(WordArrays.greetings);
         }
 
-        String questionTmp = isQuestion(text); //will be much faster than twice searching for an answer later
-        
-        if (!questionTmp.equals("")) {
+        String questionTmp = isQuestion(text); //much faster than searching for an answer twice later
+
+        if (!questionTmp.isEmpty()) {
             return questionTmp;
         }
 
@@ -74,7 +75,7 @@ public class Intelligence {
     }
 
     private boolean isGreeting(String text) {
-        return containsOneOf(text, recocnizableWords.greetings);
+        return containsOneOf(text, WordArrays.greetings);
     }
 
     private String questionWhy() {
