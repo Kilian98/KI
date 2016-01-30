@@ -1,6 +1,7 @@
 package intelligence;
 
 import etc.WordArrays;
+import etc.recocnizableWords;
 import lib.Random;
 
 public class Intelligence {
@@ -34,7 +35,7 @@ public class Intelligence {
     }
 
     private String isQuestion(String text) {
-        
+
         if (text.startsWith("was")) {
             return questionWhat();
         }
@@ -60,34 +61,23 @@ public class Intelligence {
         return strArr[rnd.getRandom(0, strArr.length - 1)];
     }
 
+    private boolean containsOneOf(String text, String[] strArr) {
+
+        for (String s : strArr) {
+
+            if (text.equals(s)) {
+                return true;
+            }
+
+        }
+
+        return false;
+
+    }
+
     private boolean isGreeting(String text) {
 
-        switch (text) {
-            case "hi":
-                return true;
-            case "hallo":
-                return true;
-            case "hey":
-                return true;
-            case "jo":
-                return true;
-            case "tag":
-                return true;
-            case "tach":
-                return true;
-            case "morgen":
-                return true;
-            case "moinsen":
-                return true;
-            case "servus":
-                return true;
-            case "yo":
-                return true;
-            case "goedendag":
-                return true;
-            default:
-                return false;
-        }
+        return containsOneOf(text, recocnizableWords.greetings);
 
     }
 
