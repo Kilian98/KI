@@ -76,15 +76,15 @@ public class Intelligence {
     }
 
     private String questionWhy() {
-        return "";
+        return "Du fragst, warum";
     }
 
     private String questionHow() {
-        return "";
+        return "Du fragst, wie";
     }
 
     private String questionWhat() {
-        return "";
+        return "Du fragst, was";
     }
 
 }
