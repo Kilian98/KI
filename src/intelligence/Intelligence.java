@@ -27,8 +27,10 @@ public class Intelligence {
             return oneOf(WordArrays.greetings);
         }
 
-        if (!isQuestion(text).equals("")) {
-            return "Du hast eine Frage gestellt";
+        String questionTmp = isQuestion(text); //will be much faster than twice searching for an answer later
+        
+        if (!questionTmp.equals("")) {
+            return questionTmp;
         }
 
         return "";
