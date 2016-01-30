@@ -3,7 +3,6 @@ package intelligence;
 import etc.WordArrays;
 import lib.Random;
 
-
 public class Intelligence {
 
     public Intelligence() {
@@ -82,9 +81,14 @@ public class Intelligence {
                 return true;
             case "servus":
                 return true;
+            case "yo":
+                return true;
+            case "goedendag":
+                return true;
+            default:
+                return false;
         }
 
-        return false;
     }
 
     private String questionWhy() {

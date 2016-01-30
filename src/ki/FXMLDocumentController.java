@@ -17,7 +17,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javax.swing.text.DefaultCaret;
 
 /**
  *
