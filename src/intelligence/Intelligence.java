@@ -53,7 +53,6 @@ public class Intelligence {
         }
 
         return "";
-
     }
 
     private String oneOf(String[] strArr) {
@@ -64,21 +63,16 @@ public class Intelligence {
     private boolean containsOneOf(String text, String[] strArr) {
 
         for (String s : strArr) {
-
             if (text.equals(s)) {
                 return true;
             }
-
         }
 
         return false;
-
     }
 
     private boolean isGreeting(String text) {
-
         return containsOneOf(text, recocnizableWords.greetings);
-
     }
 
     private String questionWhy() {
