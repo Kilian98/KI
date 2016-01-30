@@ -35,19 +35,19 @@ public class Intelligence {
 
     private String isQuestion(String text) {
         
-        if (text.toLowerCase().startsWith("was")) {
+        if (text.startsWith("was")) {
             return questionWhat();
         }
 
-        if (text.toLowerCase().startsWith("wie")) {
+        if (text.startsWith("wie")) {
             return questionHow();
         }
 
-        if (text.toLowerCase().startsWith("warum")) {
+        if (text.startsWith("warum")) {
             return questionWhy();
         }
 
-        if (text.toLowerCase().startsWith("wieso")) {
+        if (text.startsWith("wieso")) {
             return questionWhy();
         }
 
