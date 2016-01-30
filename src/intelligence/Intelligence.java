@@ -38,19 +38,19 @@ public class Intelligence {
 
     private String isQuestion(String text) {
 
-        if (text.startsWith("was")) {
+        if (text.startsWith("was ")) {
             return questionWhat();
         }
 
-        if (text.startsWith("wie")) {
+        if (text.startsWith("wie ")) {
             return questionHow();
         }
 
-        if (text.startsWith("warum")) {
+        if (text.startsWith("warum ")) {
             return questionWhy();
         }
 
-        if (text.startsWith("wieso")) {
+        if (text.startsWith("wieso ")) {
             return questionWhy();
         }
 
