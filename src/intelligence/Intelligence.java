@@ -1,5 +1,6 @@
 package intelligence;
 
+import etc.RecognizableWords;
 import etc.WordArrays;
 import lib.Random;
 
@@ -75,7 +76,7 @@ public class Intelligence {
     }
 
     private boolean isGreeting(String text) {
-        return containsOneOf(text, WordArrays.greetings);
+        return containsOneOf(text, RecognizableWords.greetings);
     }
 
     private String questionWhy() {
