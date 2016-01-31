@@ -7,44 +7,44 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ki.FXMLDocumentController">
-   <top>
-      <MenuBar fx:id="TopMenu" BorderPane.alignment="CENTER">
-        <menus>
-          <Menu fx:id="menuFile" mnemonicParsing="false" text="Datei">
-            <items>
-              <MenuItem fx:id="menuItemClose" mnemonicParsing="false" onAction="#close" text="Close" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <SplitPane layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="346.0" prefWidth="575.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="86.0" prefWidth="570.0">
-                     <children>
-                        <SplitPane dividerPositions="0.8466076696165191" layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="322.0" prefWidth="549.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <TextArea fx:id="tbHistory" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" promptText="Verlauf" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <Button fx:id="btnSend" layoutX="503.0" layoutY="16.0" mnemonicParsing="false" onAction="#btnSendOnAction" text="Send" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="7.0" />
-                                    <TextField fx:id="tbEingabe" layoutX="14.0" layoutY="11.0" onAction="#btnEingabeOnKey" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="7.0" />
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
-                  </AnchorPane>
-              </items>
-            </SplitPane>
-         </children>
-      </AnchorPane>
-   </center>
+    <top>
+        <MenuBar fx:id="TopMenu" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu fx:id="menuFile" mnemonicParsing="false" text="Datei">
+                    <items>
+                        <MenuItem fx:id="menuItemClose" mnemonicParsing="false" onAction="#close" text="Close" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <SplitPane layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="346.0" prefWidth="575.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="86.0" prefWidth="570.0">
+                            <children>
+                                <SplitPane dividerPositions="0.8466076696165191" layoutX="14.0" layoutY="14.0" orientation="VERTICAL" prefHeight="322.0" prefWidth="549.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                            <children>
+                                                <TextArea fx:id="tbHistory" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" promptText="Verlauf" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                            <children>
+                                                <Button fx:id="btnSend" layoutX="503.0" layoutY="16.0" mnemonicParsing="false" onAction="#btnSendOnAction" text="Send" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="7.0" />
+                                                <TextField fx:id="tbEingabe" layoutX="14.0" layoutY="11.0" onAction="#btnEingabeOnKey" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="7.0" />
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </items>
+                </SplitPane>
+            </children>
+        </AnchorPane>
+    </center>
 </BorderPane>

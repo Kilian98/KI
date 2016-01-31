@@ -20,9 +20,6 @@ public class Intelligence {
 
     }
 
-    /*
-     @params text needs to be lower case
-     */
     public String process(String text) {
 
         if (isGreeting(text)) {
