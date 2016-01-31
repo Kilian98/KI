@@ -1,7 +1,9 @@
 package intelligence;
 
+import etc.MathParser;
 import etc.RecognizableWords;
 import etc.WordArrays;
+import javax.script.ScriptException;
 import lib.Random;
 
 public class Intelligence {
@@ -38,7 +40,7 @@ public class Intelligence {
     private String isQuestion(String text) {
 
         if (text.startsWith("was ")) {
-            return questionWhat();
+            return questionWhat(text);
         }
 
         if (text.startsWith("wie ")) {
@@ -84,7 +86,24 @@ public class Intelligence {
         return "Du fragst, wie";
     }
 
-    private String questionWhat() {
+    private String questionWhat(String text) {
+
+        String tmpText = text.substring(4);
+
+        if (tmpText.startsWith("gibt") || tmpText.startsWith("ist") || tmpText.startsWith("ergibt")) {
+
+            try {
+                String tmp = tmpText.replace("gibt", "");
+                tmp = tmp.replace("ist", "");
+                tmp = tmp.replace("ergibt", "");
+                tmp = tmp.replace(" ", "");
+
+                return MathParser.solveEquation(tmp);
+            } catch (ScriptException e) {
+            }
+
+        }
+
         return "Du fragst, was";
     }
 
