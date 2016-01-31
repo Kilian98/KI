@@ -39,6 +39,10 @@ public class Intelligence {
 
     private String isQuestion(String text) {
 
+        if (text.equals("exit")) {
+            System.exit(0);
+        }
+
         if (text.startsWith("was ")) {
             return questionWhat(text);
         }
