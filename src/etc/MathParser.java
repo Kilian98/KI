@@ -22,7 +22,7 @@ public class MathParser {
 //        solveEquationOwn("17+(54*714)/22");
 
         List<String> liste = new ArrayList<>();
-        
+
         liste.add("0");
         liste.add("1");
         liste.add("2");
@@ -31,11 +31,10 @@ public class MathParser {
         liste.add("5");
         liste.add("6");
         liste.add("7");
-        
-        
+
         replaceListEntries(2, 4, "richtig", liste);
     }
-
+    //ready, works fine, no Bugs, no need to edit
     private static double solveEquationOwn(String equ) {
 
         List<String> tiles = new ArrayList<>();
@@ -77,8 +76,12 @@ public class MathParser {
         return solveEquationOwn(tiles);
     }
 
+    
+    //not ready, edit in progress
     private static double solveEquationOwn(List<String> tiles) {
 
+        
+        
         return 0.0;
     }
 
@@ -90,12 +93,6 @@ public class MathParser {
 
         }
         liste.add(startIndex, value);
-
-        for (String s : liste) {
-            System.out.println(s);
-
-        }
-
     }
 
 }
