@@ -1,6 +1,7 @@
 package etc;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -34,6 +35,7 @@ public class MathParser {
 
         replaceListEntries(2, 4, "richtig", liste);
     }
+
     //ready, works fine, no Bugs, no need to edit
     private static double solveEquationOwn(String equ) {
 
@@ -76,13 +78,100 @@ public class MathParser {
         return solveEquationOwn(tiles);
     }
 
-    
     //not ready, edit in progress
     private static double solveEquationOwn(List<String> tiles) {
 
-        
-        
-        return 0.0;
+        //find the brackets and solve them recursively
+        List<String> tmpBrackets = new ArrayList<>();
+
+        int brackets = 0;
+        int firstBracket;
+        boolean foundBrackets = false;
+        int from = 0;
+        int to;
+
+        for (int i = 0; i < tiles.size(); i++) {
+
+            if (tiles.get(i).equals("(")) {
+                brackets++;
+
+                if (!foundBrackets) {
+                    from = i;
+                }
+
+                foundBrackets = true;
+            }
+
+            if (tiles.get(i).equals(")")) {
+                brackets--;
+                if (brackets == 0) {
+                    to = i;
+                    replaceListEntries(from, to - 1, solveEquationOwn(tmpBrackets) + "", tiles);
+                }
+            }
+
+            if (brackets > 0) {
+                tmpBrackets.add(tiles.get(i));
+            }
+
+        }
+
+        //real solving algorithm
+        if (!foundBrackets) {
+            solveEquationWithoutBrackets(tiles);
+        }
+
+        return Double.parseDouble(tiles.get(0));
+    }
+
+    //real solving algorithm
+    private static double solveEquationWithoutBrackets(List<String> tiles) {
+
+        for (int i = 0; i < tiles.size(); i++) {
+
+            if (tiles.get(i).equals("*")) {
+                double one = Double.parseDouble(tiles.get(i - 1));
+                double two = Double.parseDouble(tiles.get(i + 1));
+
+                replaceListEntries(i - 1, i + 1, (one * two) + "", tiles);
+            }
+
+        }
+
+        for (int i = 0; i < tiles.size(); i++) {
+
+            if (tiles.get(i).equals("/")) {
+                double one = Double.parseDouble(tiles.get(i - 1));
+                double two = Double.parseDouble(tiles.get(i + 1));
+
+                replaceListEntries(i - 1, i + 1, (one / two) + "", tiles);
+            }
+
+        }
+
+        for (int i = 0; i < tiles.size(); i++) {
+
+            if (tiles.get(i).equals("+")) {
+                double one = Double.parseDouble(tiles.get(i - 1));
+                double two = Double.parseDouble(tiles.get(i + 1));
+
+                replaceListEntries(i - 1, i + 1, (one + two) + "", tiles);
+            }
+
+        }
+
+        for (int i = 0; i < tiles.size(); i++) {
+
+            if (tiles.get(i).equals("-")) {
+                double one = Double.parseDouble(tiles.get(i - 1));
+                double two = Double.parseDouble(tiles.get(i + 1));
+
+                replaceListEntries(i - 1, i + 1, (one - two) + "", tiles);
+            }
+
+        }
+
+        return Double.parseDouble(tiles.get(0));
     }
 
     static void replaceListEntries(int startIndex, int endIndex, String value, List<String> liste) {
