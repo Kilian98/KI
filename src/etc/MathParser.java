@@ -1,6 +1,6 @@
 package etc;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -19,12 +19,26 @@ public class MathParser {
     }
 
     public static void main(String[] args) {
-        solveEquationOwn("17+(54*714)/22");
+//        solveEquationOwn("17+(54*714)/22");
+
+        List<String> liste = new ArrayList<>();
+        
+        liste.add("0");
+        liste.add("1");
+        liste.add("2");
+        liste.add("3");
+        liste.add("4");
+        liste.add("5");
+        liste.add("6");
+        liste.add("7");
+        
+        
+        replaceListEntries(2, 4, "richtig", liste);
     }
 
-    public static double solveEquationOwn(String equ) {
+    private static double solveEquationOwn(String equ) {
 
-        List<String> tiles = new LinkedList<>();
+        List<String> tiles = new ArrayList<>();
         String tmp = "";
 
         equ = equ.replace(" ", "");
@@ -32,7 +46,7 @@ public class MathParser {
         for (int i = 0; i < equ.length(); i++) {
 
             boolean tmp2 = true;
-            
+
             switch (equ.charAt(i)) {
                 case '*':
                 case '/':
@@ -52,7 +66,7 @@ public class MathParser {
             }
 
         }
-        
+
         tiles.add(tmp);
 
         for (String s : tiles) {
@@ -63,9 +77,25 @@ public class MathParser {
         return solveEquationOwn(tiles);
     }
 
-    public static double solveEquationOwn(List<String> tiles) {
+    private static double solveEquationOwn(List<String> tiles) {
 
         return 0.0;
+    }
+
+    static void replaceListEntries(int startIndex, int endIndex, String value, List<String> liste) {
+
+        for (int i = startIndex; i <= endIndex; i++) {
+
+            liste.remove(startIndex);
+
+        }
+        liste.add(startIndex, value);
+
+        for (String s : liste) {
+            System.out.println(s);
+
+        }
+
     }
 
 }
