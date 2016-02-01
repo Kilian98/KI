@@ -12,9 +12,18 @@ public class MathParser {
 
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
-        String foo = equ;
 
-        return equ + "  =  " + engine.eval(foo).toString();
+        double solution = Double.parseDouble(engine.eval(equ).toString());
+        double ownSolution = solveEquationOwn(equ);
+
+        if (solution != ownSolution) {
+            System.err.println("Your Math-Parser had a failture:");
+            System.err.println("Right solution: " + solution);
+            System.err.println("Your Solution: " + ownSolution);
+            return equ + "  =  " + solution + "";
+        }
+
+        return equ + "  =  " + ownSolution;
 
     }
 
@@ -80,7 +89,7 @@ public class MathParser {
         return solveEquationOwn(tiles);
     }
 
-    //not ready, edit in progress
+    //division in Brackets, handling each bracket alone
     private static double solveEquationOwn(List<String> tiles) {
 
         //find the brackets and solve them recursively
@@ -134,6 +143,7 @@ public class MathParser {
                 double two = Double.parseDouble(tiles.get(i + 1));
 
                 replaceListEntries(i - 1, i + 1, (one * two) + "", tiles);
+                i--;
             }
 
         }
@@ -145,6 +155,7 @@ public class MathParser {
                 double two = Double.parseDouble(tiles.get(i + 1));
 
                 replaceListEntries(i - 1, i + 1, (one / two) + "", tiles);
+                i--;
             }
 
         }
@@ -156,6 +167,7 @@ public class MathParser {
                 double two = Double.parseDouble(tiles.get(i + 1));
 
                 replaceListEntries(i - 1, i + 1, (one + two) + "", tiles);
+                i--;
             }
 
         }
@@ -167,6 +179,7 @@ public class MathParser {
                 double two = Double.parseDouble(tiles.get(i + 1));
 
                 replaceListEntries(i - 1, i + 1, (one - two) + "", tiles);
+                i--;
             }
 
         }
