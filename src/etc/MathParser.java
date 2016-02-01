@@ -13,9 +13,27 @@ public class MathParser {
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
 
-        double solution = Double.parseDouble(engine.eval(equ).toString());
+        double solution;
+
+        try {
+
+            solution = Double.parseDouble(engine.eval(equ).toString());
+        } catch (Exception e) {
+            System.err.println("Math-lib error");
+        
+            try {
+                return equ + "  =  " + solveEquationOwn(equ) + "";
+            } catch (Exception ex) {
+                return "err";
+            }
+            
+        
+        }
+
         double ownSolution = solveEquationOwn(equ);
 
+        
+        
         if (solution != ownSolution) {
             System.err.println("Your Math-Parser had a failture:");
             System.err.println("Right solution: " + solution);
@@ -66,6 +84,7 @@ public class MathParser {
                 case '-':
                 case '(':
                 case ')':
+                case '^':
                     if (!"".equals(tmp)) {
                         tiles.add(tmp);
                     }
@@ -138,6 +157,18 @@ public class MathParser {
 
         for (int i = 0; i < tiles.size(); i++) {
 
+            if (tiles.get(i).equals("^")) {
+                double one = Double.parseDouble(tiles.get(i - 1));
+                double two = Double.parseDouble(tiles.get(i + 1));
+
+                replaceListEntries(i - 1, i + 1, (times(one, two)) + "", tiles);
+                i--;
+            }
+
+        }
+
+        for (int i = 0; i < tiles.size(); i++) {
+
             if (tiles.get(i).equals("*")) {
                 double one = Double.parseDouble(tiles.get(i - 1));
                 double two = Double.parseDouble(tiles.get(i + 1));
@@ -185,6 +216,19 @@ public class MathParser {
         }
 
         return Double.parseDouble(tiles.get(0));
+    }
+
+    //bsp: 4² ist times(4, 2)
+    private static double times(double one, double two) {
+
+        double solution = 1;
+
+        for (int i = 0; i < two; i++) {
+            solution = solution * one;
+        }
+
+        return solution;
+
     }
 
     static void replaceListEntries(int startIndex, int endIndex, String value, List<String> liste) {
