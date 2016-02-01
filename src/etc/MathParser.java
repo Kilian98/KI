@@ -8,8 +8,9 @@ import javax.script.ScriptException;
 
 public class MathParser {
 
-    public static String solveEquation(String equ) throws ScriptException { //BETA until own method works
+    public static String solveEquation(String equ) throws ScriptException {
 
+        //<editor-fold defaultstate="collapsed" desc="only to qualify if own-solution is correct and will be removed in the future">
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
 
@@ -20,20 +21,18 @@ public class MathParser {
             solution = Double.parseDouble(engine.eval(equ).toString());
         } catch (Exception e) {
             System.err.println("Math-lib error");
-        
+
             try {
                 return equ + "  =  " + solveEquationOwn(equ) + "";
             } catch (Exception ex) {
                 return "err";
             }
-            
-        
+
         }
+//</editor-fold>
 
         double ownSolution = solveEquationOwn(equ);
 
-        
-        
         if (solution != ownSolution) {
             System.err.println("Your Math-Parser had a failture:");
             System.err.println("Right solution: " + solution);
