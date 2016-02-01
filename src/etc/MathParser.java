@@ -1,7 +1,6 @@
 package etc;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -21,19 +20,22 @@ public class MathParser {
 
     public static void main(String[] args) {
 //        solveEquationOwn("17+(54*714)/22");
+//
+//        List<String> liste = new ArrayList<>();
+//
+//        liste.add("0");
+//        liste.add("1");
+//        liste.add("2");
+//        liste.add("3");
+//        liste.add("4");
+//        liste.add("5");
+//        liste.add("6");
+//        liste.add("7");
+//
+//        replaceListEntries(2, 4, "richtig", liste);
 
-        List<String> liste = new ArrayList<>();
+        System.out.println(solveEquationOwn("(5+5*(3+3))*2+8"));
 
-        liste.add("0");
-        liste.add("1");
-        liste.add("2");
-        liste.add("3");
-        liste.add("4");
-        liste.add("5");
-        liste.add("6");
-        liste.add("7");
-
-        replaceListEntries(2, 4, "richtig", liste);
     }
 
     //ready, works fine, no Bugs, no need to edit
@@ -85,7 +87,6 @@ public class MathParser {
         List<String> tmpBrackets = new ArrayList<>();
 
         int brackets = 0;
-        int firstBracket;
         boolean foundBrackets = false;
         int from = 0;
         int to;
@@ -97,16 +98,17 @@ public class MathParser {
 
                 if (!foundBrackets) {
                     from = i;
+                    foundBrackets = true;
+                    continue;
                 }
 
-                foundBrackets = true;
             }
 
             if (tiles.get(i).equals(")")) {
                 brackets--;
                 if (brackets == 0) {
                     to = i;
-                    replaceListEntries(from, to - 1, solveEquationOwn(tmpBrackets) + "", tiles);
+                    replaceListEntries(from, to, solveEquationOwn(tmpBrackets) + "", tiles);
                 }
             }
 
@@ -117,9 +119,7 @@ public class MathParser {
         }
 
         //real solving algorithm
-        if (!foundBrackets) {
-            solveEquationWithoutBrackets(tiles);
-        }
+        solveEquationWithoutBrackets(tiles);
 
         return Double.parseDouble(tiles.get(0));
     }
