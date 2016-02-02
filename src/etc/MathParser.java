@@ -15,10 +15,14 @@ public class MathParser {
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
 
         double solution;
+        long one;
+        long two;
 
         try {
-
+            one = System.nanoTime();
             solution = Double.parseDouble(engine.eval(equ).toString());
+            one = System.nanoTime() - one;
+            System.out.println("Java Algorithm needs: " + one + " nano Sekonds");
         } catch (Exception e) {
             System.err.println("Math-lib error");
 
@@ -31,8 +35,12 @@ public class MathParser {
         }
 //</editor-fold>
 
+        two = System.nanoTime();
         double ownSolution = solveEquationOwn(equ);
-
+        two = System.nanoTime() - two;
+        System.out.println("Own Algorithm needs: " + two + " nano Sekonds");
+        System.out.println("own Algorithm faster: " + (one > two));
+        System.out.println("Faktor: " + ((double) two / (double) one));
         if (solution != ownSolution) {
             System.err.println("Your Math-Parser had a failture:");
             System.err.println("Right solution: " + solution);
@@ -136,8 +144,11 @@ public class MathParser {
                 if (brackets == 0) {
                     to = i;
                     replaceListEntries(from, to, solveEquationOwn(tmpBrackets) + "", tiles);
+                    foundBrackets = false;
+                    tmpBrackets.clear();
+                    i = 0;
                 }
-            }
+            } //(((2+2)*3+4)/80)*(((2+2)*3+4)/80)
 
             if (brackets > 0) {
                 tmpBrackets.add(tiles.get(i));
