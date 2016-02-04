@@ -1,8 +1,12 @@
 package intelligence;
 
+import Exceptions.DividedByCeroException;
 import etc.MathParser;
 import etc.RecognizableWords;
 import etc.WordArrays;
+import etc.WordToNumber;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.script.ScriptException;
 import lib.Random;
 
@@ -92,6 +96,7 @@ public class Intelligence {
 
     private String questionWhat(String text) {
 
+        //Rechnung 
         String tmpText = text.substring(4);
 
         if (tmpText.startsWith("gibt") || tmpText.startsWith("ist") || tmpText.startsWith("ergibt")) {
@@ -100,10 +105,14 @@ public class Intelligence {
                 String tmp = tmpText.replace("gibt", "");
                 tmp = tmp.replace("ist", "");
                 tmp = tmp.replace("ergibt", "");
+
+                tmp = WordToNumber.format(tmp);
                 tmp = tmp.replace(" ", "");
 
                 return MathParser.solveEquation(tmp);
             } catch (ScriptException e) {
+            } catch (DividedByCeroException ex) {
+                return "/";
             }
 
         }
