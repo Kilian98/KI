@@ -1,5 +1,7 @@
 package etc;
 
+import Exceptions.DividedByCeroException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.script.ScriptEngine;
@@ -8,7 +10,7 @@ import javax.script.ScriptException;
 
 public class MathParser {
 
-    public static String solveEquation(String equ) throws ScriptException {
+    public static String solveEquation(String equ) throws ScriptException, DividedByCeroException {
 
         //<editor-fold defaultstate="collapsed" desc="only to qualify if own-solution is correct and will be removed in the future">
         ScriptEngineManager mgr = new ScriptEngineManager();
@@ -40,7 +42,7 @@ public class MathParser {
         two = System.nanoTime() - two;
         System.out.println("Own Algorithm needs: " + two + " nano Sekonds");
         System.out.println("own Algorithm faster: " + (one > two));
-        System.out.println("Faktor: " + ((double) two / (double) one));
+        System.out.println("Faktor: " + ((int) Math.floor((double) one / (double) two)) + "x");
         if (solution != ownSolution) {
             System.err.println("Your Math-Parser had a failture:");
             System.err.println("Right solution: " + solution);
@@ -52,7 +54,7 @@ public class MathParser {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DividedByCeroException {
 //        solveEquationOwn("17+(54*714)/22");
 //
 //        List<String> liste = new ArrayList<>();
@@ -72,8 +74,12 @@ public class MathParser {
 
     }
 
+    public static void detectCalculation(String text) {
+
+    }
+
     //ready, works fine, no Bugs, no need to edit
-    private static double solveEquationOwn(String equ) {
+    private static double solveEquationOwn(String equ) throws DividedByCeroException {
 
         List<String> tiles = new ArrayList<>();
         String tmp = "";
@@ -98,6 +104,7 @@ public class MathParser {
                     tiles.add(equ.charAt(i) + "");
                     tmp = "";
                     tmp2 = false;
+
             }
             if (tmp2) {
                 tmp += equ.charAt(i);
@@ -116,7 +123,7 @@ public class MathParser {
     }
 
     //division in Brackets, handling each bracket alone
-    private static double solveEquationOwn(List<String> tiles) {
+    private static double solveEquationOwn(List<String> tiles) throws DividedByCeroException {
 
         //find the brackets and solve them recursively
         List<String> tmpBrackets = new ArrayList<>();
@@ -163,15 +170,30 @@ public class MathParser {
     }
 
     //real solving algorithm
-    private static double solveEquationWithoutBrackets(List<String> tiles) {
+    private static double solveEquationWithoutBrackets(List<String> tiles) throws DividedByCeroException {
 
+//        for (int i = 0; i < tiles.size(); i++) {
+//
+//            if (tiles.get(i).equals("^")) {
+//                double one = Double.parseDouble(tiles.get(i - 1));
+//                double two = Double.parseDouble(tiles.get(i + 1));
+//
+//                replaceListEntries(i - 1, i + 1, (times(one, two)) + "", tiles);
+//                i--;
+//            }
+//
+//        }
         for (int i = 0; i < tiles.size(); i++) {
 
-            if (tiles.get(i).equals("^")) {
+            if (tiles.get(i).equals("/")) {
                 double one = Double.parseDouble(tiles.get(i - 1));
                 double two = Double.parseDouble(tiles.get(i + 1));
 
-                replaceListEntries(i - 1, i + 1, (times(one, two)) + "", tiles);
+                if (two == 0) {
+                    throw new DividedByCeroException();
+                }
+
+                replaceListEntries(i - 1, i + 1, (one / two) + "", tiles);
                 i--;
             }
 
@@ -191,11 +213,22 @@ public class MathParser {
 
         for (int i = 0; i < tiles.size(); i++) {
 
-            if (tiles.get(i).equals("/")) {
-                double one = Double.parseDouble(tiles.get(i - 1));
-                double two = Double.parseDouble(tiles.get(i + 1));
+            if (tiles.get(i).equals("-")) {
+                double one;
+                double two;
 
-                replaceListEntries(i - 1, i + 1, (one / two) + "", tiles);
+                try {
+
+                    one = Double.parseDouble(tiles.get(i - 1));
+                    two = Double.parseDouble(tiles.get(i + 1));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    one = 0;
+                    two = (-1) * Double.parseDouble(tiles.get(i + 1));
+                    replaceListEntries(i, i + 1, two + "", tiles);
+                    continue;
+                }
+
+                replaceListEntries(i - 1, i + 1, (one - two) + "", tiles);
                 i--;
             }
 
@@ -208,18 +241,6 @@ public class MathParser {
                 double two = Double.parseDouble(tiles.get(i + 1));
 
                 replaceListEntries(i - 1, i + 1, (one + two) + "", tiles);
-                i--;
-            }
-
-        }
-
-        for (int i = 0; i < tiles.size(); i++) {
-
-            if (tiles.get(i).equals("-")) {
-                double one = Double.parseDouble(tiles.get(i - 1));
-                double two = Double.parseDouble(tiles.get(i + 1));
-
-                replaceListEntries(i - 1, i + 1, (one - two) + "", tiles);
                 i--;
             }
 
