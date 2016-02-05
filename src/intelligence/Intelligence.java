@@ -51,7 +51,7 @@ public class Intelligence {
         }
 
         if (text.startsWith("wie ")) {
-            return questionHow();
+            return questionHow(text);
         }
 
         if (text.startsWith("warum ")) {
@@ -73,6 +73,17 @@ public class Intelligence {
     public static boolean containsOneOf(String text, String[] strArr) {
 
         for (String s : strArr) {
+            if (text.contains(s)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean isOneOf(String text, String[] strArr) {
+
+        for (String s : strArr) {
             if (text.equals(s)) {
                 return true;
             }
@@ -82,14 +93,21 @@ public class Intelligence {
     }
 
     private boolean isGreeting(String text) {
-        return containsOneOf(text, RecognizableWords.greetings);
+        return isOneOf(text, RecognizableWords.greetings);
     }
 
     private String questionWhy() {
         return "Du fragst, warum";
     }
 
-    private String questionHow() {
+    private String questionHow(String text) {
+
+        String tmpText = text.substring(4);
+
+        if (containsOneOf(text, RecognizableWords.personal) && containsOneOf(text, RecognizableWords.feel)) {
+            return oneOf(WordArrays.feelGood);
+        }
+
         return "Du fragst, wie";
     }
 
