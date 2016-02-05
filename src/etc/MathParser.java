@@ -1,6 +1,7 @@
 package etc;
 
 import Exceptions.DividedByCeroException;
+import intelligence.Intelligence;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class MathParser {
             try {
                 return equ + "  =  " + solveEquationOwn(equ) + "";
             } catch (Exception ex) {
-                return "err";
+                return "so einen schmarrn rechne ich nich";
             }
 
         }
@@ -74,8 +75,29 @@ public class MathParser {
 
     }
 
-    public static void detectCalculation(String text) {
+    //todo
+    public static String detectCalculation(String text) {
 
+        if (Intelligence.containsOneOf(text, WordArrays.numbers) && Intelligence.containsOneOf(text, WordArrays.math)) {
+
+            int beginIndex = -1;
+            int endIndex = -1;
+
+            for (int i = 0; i < text.length(); i++) {
+
+                for (String s : WordArrays.numbers) {
+                    //todo
+                }
+
+                for (String s : WordArrays.math) {
+                    //todo
+                }
+
+            }
+
+        }
+
+        return "false";
     }
 
     //ready, works fine, no Bugs, no need to edit
@@ -155,7 +177,7 @@ public class MathParser {
                     tmpBrackets.clear();
                     i = 0;
                 }
-            } //(((2+2)*3+4)/80)*(((2+2)*3+4)/80)
+            } //(((2+2)*3+4)/80)*(((2+2)*3+4)/80) //sample
 
             if (brackets > 0) {
                 tmpBrackets.add(tiles.get(i));

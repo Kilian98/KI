@@ -5,8 +5,6 @@ import etc.MathParser;
 import etc.RecognizableWords;
 import etc.WordArrays;
 import etc.WordToNumber;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.script.ScriptException;
 import lib.Random;
 
@@ -21,6 +19,7 @@ public class Intelligence {
     public String newInput(String text) {
 
         String input = text.toLowerCase();
+
         String output = process(input);
         return !output.isEmpty() ? prefix + output : prefix + "Ich kann hierauf leider noch nichts antworten.";
 
@@ -71,7 +70,7 @@ public class Intelligence {
         return strArr[rnd.getRandom(0, strArr.length - 1)];
     }
 
-    private boolean containsOneOf(String text, String[] strArr) {
+    public static boolean containsOneOf(String text, String[] strArr) {
 
         for (String s : strArr) {
             if (text.equals(s)) {
@@ -112,7 +111,9 @@ public class Intelligence {
                 return MathParser.solveEquation(tmp);
             } catch (ScriptException e) {
             } catch (DividedByCeroException ex) {
-                return "/";
+                return "Bitte beachte, dass eine Teilung durch Null nicht möglich ist";
+            } catch (Exception ex2) {
+                System.err.println("Fehler bei berechnen einer Lösung");
             }
 
         }

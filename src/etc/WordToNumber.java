@@ -16,14 +16,13 @@ public class WordToNumber {
 
         for (int i = 0; i <= 20; i++) {
 
-            edited = edited.replace(" " + numbers[i] + "", " " +  i );
+            edited = edited.replace(" " + numbers[i] + "", " " + i);
         }
-        
+
         edited = edited.replace(" mal ", "*");
         edited = edited.replace(" durch ", "/");
         edited = edited.replace(" plus ", "+");
         edited = edited.replace(" minus ", "-");
-        
 
         return edited;
     }
