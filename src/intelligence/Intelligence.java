@@ -5,6 +5,8 @@ import etc.MathParser;
 import etc.RecognizableWords;
 import etc.WordArrays;
 import etc.WordToNumber;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.script.ScriptException;
 import lib.Random;
 
@@ -46,6 +48,14 @@ public class Intelligence {
             System.exit(0);
         }
 
+        if (!MathParser.detectCalculation(WordToNumber.format(text)).equals("false")) {
+            try {
+                System.out.println("detected calculation");
+                return MathParser.solveEquation(MathParser.detectCalculation(WordToNumber.format(text)));
+            } catch (ScriptException | DividedByCeroException ex) {
+            }
+        }
+
         if (text.startsWith("was ")) {
             return questionWhat(text);
         }
@@ -74,6 +84,17 @@ public class Intelligence {
 
         for (String s : strArr) {
             if (text.contains(s)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean containsOneOf(String text, char[] strArr) {
+
+        for (char s : strArr) {
+            if (text.contains(s + "")) {
                 return true;
             }
         }

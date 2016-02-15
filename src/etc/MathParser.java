@@ -2,7 +2,6 @@ package etc;
 
 import Exceptions.DividedByCeroException;
 import intelligence.Intelligence;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.script.ScriptEngine;
@@ -78,26 +77,52 @@ public class MathParser {
     //todo
     public static String detectCalculation(String text) {
 
+        int beginIndex = -1;
+        int endIndex = -1;
+
         if (Intelligence.containsOneOf(text, WordArrays.numbers) && Intelligence.containsOneOf(text, WordArrays.math)) {
 
-            int beginIndex = -1;
-            int endIndex = -1;
+            text = text.replace(" ", "");
 
             for (int i = 0; i < text.length(); i++) {
 
-                for (String s : WordArrays.numbers) {
-                    //todo
+                boolean foundSomething = false;
+                char tmp = text.charAt(i);
+
+                for (char s : WordArrays.numbers) {
+                    if (tmp == s) {
+                        foundSomething = true;
+                        break;
+                    }
                 }
 
-                for (String s : WordArrays.math) {
-                    //todo
+                for (char s : WordArrays.math) {
+                    if (tmp == s) {
+                        foundSomething = true;
+                        break;
+                    }
+                }
+
+                if (beginIndex != -1 && !foundSomething) {
+                    endIndex = i;
+                } else if (beginIndex == -1 && foundSomething) {
+                    beginIndex = i;
                 }
 
             }
 
         }
 
-        return "false";
+        if (endIndex == -1) {
+            endIndex = text.length();
+        }
+
+        if (beginIndex == -1) {
+            return "false";
+        } else {
+            System.out.println(text.substring(beginIndex, endIndex));
+            return text.substring(beginIndex, endIndex);
+        }
     }
 
     //ready, works fine, no Bugs, no need to edit
